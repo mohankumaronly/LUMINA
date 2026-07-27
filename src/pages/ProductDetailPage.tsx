@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   FaStar, 
   FaStarHalfAlt, 
@@ -13,47 +13,30 @@ import {
   FaShieldAlt,
   FaUndo
 } from 'react-icons/fa';
+import { products } from './ProductsPage';
 
 const ProductDetailPage: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Sample product data - in real app, fetch based on id
-  const product = {
-    id: 1,
-    name: 'Premium Wireless Headphones',
-    price: 299.99,
-    rating: 4.5,
-    reviews: 128,
-    description: 'Experience crystal-clear audio with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.',
-    category: 'Electronics',
-    inStock: true,
-    discount: 20,
-    images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&h=600&fit=crop'
-    ],
-    features: [
-      'Active Noise Cancellation',
-      '40-hour battery life',
-      'Bluetooth 5.0',
-      'Comfortable ear cushions',
-      'Built-in microphone',
-      'Foldable design'
-    ],
-    specifications: {
-      'Brand': 'SoundMax',
-      'Model': 'SM-2000',
-      'Color': 'Black',
-      'Connectivity': 'Wireless',
-      'Battery Life': '40 hours',
-      'Charging Time': '2 hours'
+  useEffect(() => {
+    // Find product by id
+    const productId = parseInt(id || '0');
+    const foundProduct = products.find(p => p.id === productId);
+    
+    if (foundProduct) {
+      setProduct(foundProduct);
+      setLoading(false);
+    } else {
+      // Product not found, redirect to products page
+      navigate('/products');
     }
-  };
+  }, [id, navigate]);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -69,7 +52,7 @@ const ProductDetailPage: React.FC = () => {
     return stars;
   };
 
-  // Animation variants - NO transition inside
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -96,6 +79,21 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="pt-20 min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-accent-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading product...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return null;
+  }
+
   return (
     <div className="pt-20 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -106,7 +104,7 @@ const ProductDetailPage: React.FC = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-6"
         >
-          <Link to="/products" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold">
+          <Link to="/products" className="inline-flex items-center gap-2 text-accent-600 hover:text-accent-700 font-semibold">
             <FaArrowLeft className="w-4 h-4" />
             Back to Products
           </Link>
@@ -129,7 +127,7 @@ const ProductDetailPage: React.FC = () => {
                 className="relative h-96 overflow-hidden"
               >
                 <img
-                  src={product.images[selectedImage]}
+                  src={product.images?.[selectedImage] || product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
@@ -141,27 +139,29 @@ const ProductDetailPage: React.FC = () => {
               </motion.div>
 
               {/* Thumbnail Images */}
-              <div className="grid grid-cols-4 gap-2 p-4">
-                {product.images.map((image, index) => (
-                  <motion.button
-                    key={index}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedImage(index)}
-                    className={`relative rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index
-                        ? 'border-blue-600 shadow-lg'
-                        : 'border-transparent hover:border-gray-300 dark:hover:border-gray-600'
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`Product ${index + 1}`}
-                      className="w-full h-20 object-cover"
-                    />
-                  </motion.button>
-                ))}
-              </div>
+              {product.images && product.images.length > 1 && (
+                <div className="grid grid-cols-4 gap-2 p-4">
+                  {product.images.map((image: string, index: number) => (
+                    <motion.button
+                      key={index}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setSelectedImage(index)}
+                      className={`relative rounded-lg overflow-hidden border-2 transition-all ${
+                        selectedImage === index
+                          ? 'border-accent-600 shadow-lg'
+                          : 'border-transparent hover:border-gray-300 dark:hover:border-gray-600'
+                      }`}
+                    >
+                      <img
+                        src={image}
+                        alt={`Product ${index + 1}`}
+                        className="w-full h-20 object-cover"
+                      />
+                    </motion.button>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
 
@@ -194,7 +194,7 @@ const ProductDetailPage: React.FC = () => {
                   ({product.reviews} reviews)
                 </span>
                 <span className="text-sm text-gray-400">|</span>
-                <span className="text-sm text-blue-600">{product.category}</span>
+                <span className="text-sm text-accent-600">{product.category}</span>
               </div>
             </div>
 
@@ -202,7 +202,7 @@ const ProductDetailPage: React.FC = () => {
             <div className="flex items-center gap-4">
               {product.discount > 0 ? (
                 <>
-                  <span className="text-4xl font-bold text-blue-600">
+                  <span className="text-4xl font-bold text-accent-600">
                     ${(product.price * (1 - product.discount / 100)).toFixed(2)}
                   </span>
                   <span className="text-xl text-gray-400 line-through">
@@ -213,7 +213,7 @@ const ProductDetailPage: React.FC = () => {
                   </span>
                 </>
               ) : (
-                <span className="text-4xl font-bold text-blue-600">
+                <span className="text-4xl font-bold text-accent-600">
                   ${product.price}
                 </span>
               )}
@@ -225,36 +225,40 @@ const ProductDetailPage: React.FC = () => {
             </p>
 
             {/* Features */}
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Key Features</h3>
-              <ul className="grid grid-cols-2 gap-2">
-                {product.features.map((feature, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
-                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    <FaCheckCircle className="w-4 h-4 text-green-500" />
-                    {feature}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
+            {product.features && (
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Key Features</h3>
+                <ul className="grid grid-cols-2 gap-2">
+                  {product.features.map((feature: string, index: number) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.3 }}
+                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      <FaCheckCircle className="w-4 h-4 text-green-500" />
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Specifications */}
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Specifications</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {Object.entries(product.specifications).map(([key, value]) => (
-                  <div key={key} className="flex justify-between py-1 border-b border-gray-200 dark:border-gray-700 last:border-0">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{key}</span>
-                    <span className="text-sm text-gray-900 dark:text-white font-medium">{value}</span>
-                  </div>
-                ))}
+            {product.specifications && (
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Specifications</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.entries(product.specifications).map(([key, value]) => (
+                    <div key={key} className="flex justify-between py-1 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{key}</span>
+                      <span className="text-sm text-gray-900 dark:text-white font-medium">{value as string}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Quantity & Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -283,10 +287,18 @@ const ProductDetailPage: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex-1 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+                disabled={!product.inStock}
+                className={`flex-1 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 ${
+                  product.inStock
+                    ? 'bg-accent-600 hover:bg-accent-700'
+                    : 'bg-gray-400 cursor-not-allowed'
+                }`}
               >
                 <FaShoppingBag className="w-5 h-5" />
-                Add to Cart - ${(product.price * quantity).toFixed(2)}
+                {product.inStock 
+                  ? `Add to Cart - $${(product.price * quantity).toFixed(2)}`
+                  : 'Out of Stock'
+                }
               </motion.button>
 
               <motion.button
@@ -301,21 +313,21 @@ const ProductDetailPage: React.FC = () => {
             {/* Shipping Info */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3">
-                <FaTruck className="w-5 h-5 text-blue-600" />
+                <FaTruck className="w-5 h-5 text-accent-600" />
                 <div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-white">Free Shipping</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">On orders over $50</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <FaShieldAlt className="w-5 h-5 text-blue-600" />
+                <FaShieldAlt className="w-5 h-5 text-accent-600" />
                 <div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-white">Secure Payment</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">100% encrypted</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <FaUndo className="w-5 h-5 text-blue-600" />
+                <FaUndo className="w-5 h-5 text-accent-600" />
                 <div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-white">Easy Returns</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">30-day return policy</p>
@@ -325,12 +337,20 @@ const ProductDetailPage: React.FC = () => {
 
             {/* Stock Status */}
             <div className="flex items-center gap-2 text-sm">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="text-green-600 font-semibold">In Stock</span>
-              <span className="text-gray-400">|</span>
-              <span className="text-gray-500 dark:text-gray-400">
-                {Math.floor(Math.random() * 50) + 10} units available
+              <span className={`w-2 h-2 rounded-full animate-pulse ${
+                product.inStock ? 'bg-green-500' : 'bg-red-500'
+              }`}></span>
+              <span className={product.inStock ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
+                {product.inStock ? 'In Stock' : 'Out of Stock'}
               </span>
+              {product.inStock && (
+                <>
+                  <span className="text-gray-400">|</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    {Math.floor(Math.random() * 50) + 10} units available
+                  </span>
+                </>
+              )}
             </div>
           </motion.div>
         </motion.div>

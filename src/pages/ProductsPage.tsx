@@ -12,6 +12,350 @@ import {
   FaThList
 } from 'react-icons/fa';
 
+// Export products so they can be used in ProductDetailPage
+export const products = [
+  {
+    id: 1,
+    name: 'Premium Wireless Headphones',
+    price: 299.99,
+    rating: 4.5,
+    reviews: 128,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 20,
+    description: 'Experience crystal-clear audio with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.',
+    images: [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Active Noise Cancellation',
+      '40-hour battery life',
+      'Bluetooth 5.0',
+      'Comfortable ear cushions',
+      'Built-in microphone',
+      'Foldable design'
+    ],
+    specifications: {
+      'Brand': 'SoundMax',
+      'Model': 'SM-2000',
+      'Color': 'Black',
+      'Connectivity': 'Wireless',
+      'Battery Life': '40 hours',
+      'Charging Time': '2 hours'
+    }
+  },
+  {
+    id: 2,
+    name: 'Smart Watch Series 7',
+    price: 449.99,
+    rating: 4.8,
+    reviews: 256,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 0,
+    description: 'Stay connected and track your fitness with the latest Smart Watch Series 7. Features include heart rate monitoring, GPS, and a beautiful always-on display.',
+    images: [
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1458682625221-3a45f8a844c7?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Heart Rate Monitor',
+      'GPS Tracking',
+      'Always-on Display',
+      'Water Resistant',
+      '7-day Battery Life',
+      'Sleep Tracking'
+    ],
+    specifications: {
+      'Brand': 'TechPro',
+      'Model': 'TW-7000',
+      'Color': 'Space Gray',
+      'Display': 'AMOLED',
+      'Battery Life': '7 days',
+      'Water Resistance': '50m'
+    }
+  },
+  {
+    id: 3,
+    name: 'Designer Leather Backpack',
+    price: 159.99,
+    rating: 4.3,
+    reviews: 89,
+    category: 'Fashion',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 15,
+    description: 'Crafted from premium leather, this designer backpack combines style with functionality. Perfect for work, travel, or everyday use.',
+    images: [
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Premium Leather',
+      'Laptop Compartment',
+      'Adjustable Straps',
+      'Multiple Pockets',
+      'Water Resistant',
+      'Durable Zippers'
+    ],
+    specifications: {
+      'Material': 'Genuine Leather',
+      'Size': '18" x 12" x 6"',
+      'Weight': '2.5 lbs',
+      'Color': 'Brown',
+      'Capacity': '20L',
+      'Warranty': '2 Years'
+    }
+  },
+  {
+    id: 4,
+    name: 'Premium Sneakers',
+    price: 199.99,
+    rating: 4.7,
+    reviews: 312,
+    category: 'Fashion',
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
+    inStock: false,
+    discount: 10,
+    description: 'Step up your style with these premium sneakers. Featuring cushioning technology and a sleek design for all-day comfort.',
+    images: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Cushioning Technology',
+      'Breathable Mesh',
+      'Durable Outsole',
+      'Lightweight Design',
+      'Style: Athletic',
+      'True to Size'
+    ],
+    specifications: {
+      'Brand': 'UrbanStep',
+      'Material': 'Mesh/Leather',
+      'Color': 'White/Black',
+      'Weight': '1.2 lbs',
+      'Sizes': '7-13',
+      'Closure': 'Lace-up'
+    }
+  },
+  {
+    id: 5,
+    name: '4K Smart TV 55"',
+    price: 799.99,
+    rating: 4.9,
+    reviews: 423,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 25,
+    description: 'Experience cinema-quality viewing with our 4K Smart TV. Featuring HDR, smart streaming capabilities, and immersive sound.',
+    images: [
+      'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop'
+    ],
+    features: [
+      '4K Ultra HD',
+      'HDR Support',
+      'Smart TV Apps',
+      'Voice Control',
+      '3 HDMI Ports',
+      'Wall Mountable'
+    ],
+    specifications: {
+      'Brand': 'VisionPro',
+      'Model': 'VP-55UHD',
+      'Screen Size': '55"',
+      'Resolution': '3840 x 2160',
+      'Refresh Rate': '120Hz',
+      'Warranty': '3 Years'
+    }
+  },
+  {
+    id: 6,
+    name: 'Minimalist Desk Lamp',
+    price: 49.99,
+    rating: 4.2,
+    reviews: 67,
+    category: 'Home & Living',
+    image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 0,
+    description: 'Illuminate your workspace with this minimalist desk lamp. Adjustable brightness and modern design for any desk setup.',
+    images: [
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1534073737927-85f1ebff1f5d?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1534073737927-85f1ebff1f5d?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Adjustable Brightness',
+      'Touch Control',
+      'USB Charging Port',
+      'Energy Efficient',
+      'Modern Design',
+      'Eye-care Technology'
+    ],
+    specifications: {
+      'Brand': 'LightCraft',
+      'Material': 'Aluminum',
+      'Color': 'Matte Black',
+      'Power': '5W',
+      'Brightness': '400 Lumens',
+      'Warranty': '1 Year'
+    }
+  },
+  {
+    id: 7,
+    name: 'Cotton Blend T-Shirt',
+    price: 29.99,
+    rating: 4.1,
+    reviews: 156,
+    category: 'Fashion',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 5,
+    description: 'Classic cotton blend t-shirt for everyday comfort. Soft, durable, and perfect for any casual occasion.',
+    images: [
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop'
+    ],
+    features: [
+      '100% Cotton',
+      'Machine Washable',
+      'Pre-shrunk',
+      'Classic Fit',
+      'Breathable Fabric',
+      'Available in Multiple Colors'
+    ],
+    specifications: {
+      'Brand': 'ComfortWear',
+      'Material': '100% Cotton',
+      'Color': 'White',
+      'Sizes': 'S-XXL',
+      'Fit': 'Regular',
+      'Care': 'Machine Wash'
+    }
+  },
+  {
+    id: 8,
+    name: 'Wireless Charging Pad',
+    price: 39.99,
+    rating: 4.4,
+    reviews: 98,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 0,
+    description: 'Fast wireless charging pad compatible with all Qi-enabled devices. Sleek design with LED indicator.',
+    images: [
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Fast Charging',
+      'LED Indicator',
+      'Anti-slip Design',
+      'Overheat Protection',
+      'Compatible with All Devices',
+      'Compact Size'
+    ],
+    specifications: {
+      'Brand': 'ChargePro',
+      'Input': '5V/2A',
+      'Output': '10W',
+      'Color': 'White',
+      'Compatibility': 'Qi-enabled',
+      'Warranty': '1 Year'
+    }
+  },
+  {
+    id: 9,
+    name: 'Ceramic Coffee Mug Set',
+    price: 34.99,
+    rating: 4.6,
+    reviews: 203,
+    category: 'Home & Living',
+    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 0,
+    description: 'Set of 4 premium ceramic coffee mugs. Perfect for your morning coffee or tea. Microwave and dishwasher safe.',
+    images: [
+      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Set of 4',
+      'Dishwasher Safe',
+      'Microwave Safe',
+      'Durable Ceramic',
+      'Elegant Design',
+      'Comfortable Grip'
+    ],
+    specifications: {
+      'Brand': 'HomeElegance',
+      'Material': 'Ceramic',
+      'Capacity': '12oz',
+      'Color': 'White',
+      'Set Size': '4 Pieces',
+      'Care': 'Dishwasher Safe'
+    }
+  },
+  {
+    id: 10,
+    name: 'Fitness Tracker Band',
+    price: 79.99,
+    rating: 4.3,
+    reviews: 187,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&fit=crop',
+    inStock: true,
+    discount: 12,
+    description: 'Track your fitness goals with this advanced fitness band. Monitor heart rate, steps, sleep, and more.',
+    images: [
+      'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop'
+    ],
+    features: [
+      'Heart Rate Monitor',
+      'Step Counter',
+      'Sleep Tracking',
+      'Smart Notifications',
+      'Water Resistant',
+      'Long Battery Life'
+    ],
+    specifications: {
+      'Brand': 'FitTrack',
+      'Display': 'OLED',
+      'Battery Life': '14 days',
+      'Water Resistance': '50m',
+      'Color': 'Black',
+      'Warranty': '1 Year'
+    }
+  }
+];
+
 const ProductsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -19,120 +363,6 @@ const ProductsPage: React.FC = () => {
   const [sortBy, setSortBy] = useState('popular');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  // Sample products data
-  const products = [
-    {
-      id: 1,
-      name: 'Premium Wireless Headphones',
-      price: 299.99,
-      rating: 4.5,
-      reviews: 128,
-      category: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 20
-    },
-    {
-      id: 2,
-      name: 'Smart Watch Series 7',
-      price: 449.99,
-      rating: 4.8,
-      reviews: 256,
-      category: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 0
-    },
-    {
-      id: 3,
-      name: 'Designer Leather Backpack',
-      price: 159.99,
-      rating: 4.3,
-      reviews: 89,
-      category: 'Fashion',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 15
-    },
-    {
-      id: 4,
-      name: 'Premium Sneakers',
-      price: 199.99,
-      rating: 4.7,
-      reviews: 312,
-      category: 'Fashion',
-      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
-      inStock: false,
-      discount: 10
-    },
-    {
-      id: 5,
-      name: '4K Smart TV 55"',
-      price: 799.99,
-      rating: 4.9,
-      reviews: 423,
-      category: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 25
-    },
-    {
-      id: 6,
-      name: 'Minimalist Desk Lamp',
-      price: 49.99,
-      rating: 4.2,
-      reviews: 67,
-      category: 'Home & Living',
-      image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 0
-    },
-    {
-      id: 7,
-      name: 'Cotton Blend T-Shirt',
-      price: 29.99,
-      rating: 4.1,
-      reviews: 156,
-      category: 'Fashion',
-      image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 5
-    },
-    {
-      id: 8,
-      name: 'Wireless Charging Pad',
-      price: 39.99,
-      rating: 4.4,
-      reviews: 98,
-      category: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 0
-    },
-    {
-      id: 9,
-      name: 'Ceramic Coffee Mug Set',
-      price: 34.99,
-      rating: 4.6,
-      reviews: 203,
-      category: 'Home & Living',
-      image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 0
-    },
-    {
-      id: 10,
-      name: 'Fitness Tracker Band',
-      price: 79.99,
-      rating: 4.3,
-      reviews: 187,
-      category: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&fit=crop',
-      inStock: true,
-      discount: 12
-    }
-  ];
 
   const categories = ['All', 'Electronics', 'Fashion', 'Home & Living', 'Books'];
 
@@ -174,7 +404,7 @@ const ProductsPage: React.FC = () => {
     return stars;
   };
 
-  // Animation variants - NO transition inside
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -224,7 +454,7 @@ const ProductsPage: React.FC = () => {
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none transition-colors"
+                className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-accent-500 focus:outline-none transition-colors"
               />
             </div>
 
@@ -233,7 +463,7 @@ const ProductsPage: React.FC = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none transition-colors"
+                className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-accent-500 focus:outline-none transition-colors"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>{category}</option>
@@ -243,7 +473,7 @@ const ProductsPage: React.FC = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none transition-colors"
+                className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:border-accent-500 focus:outline-none transition-colors"
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-low">Price: Low to High</option>
@@ -279,7 +509,7 @@ const ProductsPage: React.FC = () => {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setIsFilterOpen(true)}
-              className="md:hidden flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+              className="md:hidden flex items-center justify-center gap-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-xl hover:bg-accent-700 transition-colors"
             >
               <FaFilter /> Filters
             </button>
@@ -348,7 +578,7 @@ const ProductsPage: React.FC = () => {
                   viewMode === 'list' ? 'flex flex-col justify-center' : ''
                 }`}>
                   <Link to={`/product/${product.id}`}>
-                    <div className="text-xs text-blue-600 font-semibold mb-1">
+                    <div className="text-xs text-accent-600 font-semibold mb-1">
                       {product.category}
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
@@ -363,7 +593,7 @@ const ProductsPage: React.FC = () => {
                     <div className="flex items-center gap-3 mb-4">
                       {product.discount > 0 ? (
                         <>
-                          <span className="text-2xl font-bold text-blue-600">
+                          <span className="text-2xl font-bold text-accent-600">
                             ${(product.price * (1 - product.discount / 100)).toFixed(2)}
                           </span>
                           <span className="text-sm text-gray-400 line-through">
@@ -371,7 +601,7 @@ const ProductsPage: React.FC = () => {
                           </span>
                         </>
                       ) : (
-                        <span className="text-2xl font-bold text-blue-600">
+                        <span className="text-2xl font-bold text-accent-600">
                           ${product.price}
                         </span>
                       )}
@@ -384,7 +614,7 @@ const ProductsPage: React.FC = () => {
                     disabled={!product.inStock}
                     className={`w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
                       product.inStock
-                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                        ? 'bg-accent-600 hover:bg-accent-700 text-white'
                         : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                     }`}
                   >
@@ -458,7 +688,7 @@ const ProductsPage: React.FC = () => {
                           }}
                           className={`w-full text-left px-4 py-2 rounded-xl transition-colors ${
                             selectedCategory === category
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-accent-600 text-white'
                               : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                           }`}
                         >
@@ -486,7 +716,7 @@ const ProductsPage: React.FC = () => {
                           }}
                           className={`w-full text-left px-4 py-2 rounded-xl transition-colors ${
                             sortBy === option.value
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-accent-600 text-white'
                               : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                           }`}
                         >
