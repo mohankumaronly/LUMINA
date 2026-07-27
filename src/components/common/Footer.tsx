@@ -82,9 +82,9 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 text-gray-300">
+    <footer className="bg-primary-900 dark:bg-primary-950 text-primary-300">
       {/* Features Section */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-primary-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
@@ -104,15 +104,15 @@ const Footer: React.FC = () => {
                   variants={iconVariants}
                   whileHover="hover"
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600/20 transition-colors"
+                  className="w-12 h-12 bg-accent-600/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent-600/20 transition-colors"
                 >
-                  <feature.icon className="w-6 h-6 text-blue-400" />
+                  <feature.icon className="w-6 h-6 text-accent-400" />
                 </motion.div>
                 <div>
                   <h4 className="text-white font-semibold text-sm">
                     {feature.title}
                   </h4>
-                  <p className="text-gray-400 text-xs">
+                  <p className="text-primary-400 text-xs">
                     {feature.description}
                   </p>
                 </div>
@@ -141,15 +141,15 @@ const Footer: React.FC = () => {
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
-                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg"
+                className="w-10 h-10 bg-accent-600 rounded-xl flex items-center justify-center shadow-lg"
               >
                 <FaStore className="w-6 h-6 text-white" />
               </motion.div>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-400">
+              <span className="text-2xl font-bold text-accent-400">
                 LUMINA
               </span>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+            <p className="text-primary-400 text-sm leading-relaxed mb-4">
               Your premium destination for quality products. We bring you the best 
               selection of electronics, fashion, and lifestyle items.
             </p>
@@ -158,25 +158,25 @@ const Footer: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 href="mailto:info@lumina.com"
-                className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                className="p-2 bg-primary-800 rounded-lg hover:bg-primary-700 transition-colors"
               >
-                <FaEnvelope className="w-4 h-4 text-gray-400" />
+                <FaEnvelope className="w-4 h-4 text-primary-400" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 href="tel:+1234567890"
-                className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                className="p-2 bg-primary-800 rounded-lg hover:bg-primary-700 transition-colors"
               >
-                <FaPhone className="w-4 h-4 text-gray-400" />
+                <FaPhone className="w-4 h-4 text-primary-400" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 href="#"
-                className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                className="p-2 bg-primary-800 rounded-lg hover:bg-primary-700 transition-colors"
               >
-                <FaMapMarkerAlt className="w-4 h-4 text-gray-400" />
+                <FaMapMarkerAlt className="w-4 h-4 text-primary-400" />
               </motion.a>
             </div>
           </motion.div>
@@ -192,7 +192,7 @@ const Footer: React.FC = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    className="text-primary-400 hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <FaChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                     {link.name}
@@ -213,7 +213,7 @@ const Footer: React.FC = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    className="text-primary-400 hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <FaChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                     {link.name}
@@ -234,7 +234,7 @@ const Footer: React.FC = () => {
                 <li key={category.path}>
                   <Link
                     to={category.path}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    className="text-primary-400 hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <FaChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                     {category.name}
@@ -244,30 +244,34 @@ const Footer: React.FC = () => {
             </ul>
           </motion.div>
 
-          {/* Newsletter */}
+          {/* Newsletter - FIXED */}
           <motion.div 
             variants={itemVariants}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <h3 className="text-white font-semibold text-lg mb-4">Newsletter</h3>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-primary-400 text-sm mb-4">
               Subscribe to get special offers, free giveaways, and exclusive deals.
             </p>
-            <form className="relative">
+            <form className="relative" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full px-4 py-3 pr-28 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors"
+                className="w-full px-4 py-3 pr-32 rounded-xl bg-primary-800 border border-primary-700 text-white placeholder-primary-400 focus:border-accent-500 focus:outline-none transition-colors text-sm"
+                required
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="absolute right-1 top-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-600 text-white font-semibold rounded-lg hover:shadow-lg transition-shadow"
+                className="absolute right-1 top-1 px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all text-sm"
               >
                 Subscribe
               </motion.button>
             </form>
+            <p className="text-primary-500 text-xs mt-2">
+              No spam, unsubscribe anytime.
+            </p>
           </motion.div>
         </motion.div>
 
@@ -277,10 +281,10 @@ const Footer: React.FC = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="border-t border-gray-800 py-8"
+          className="border-t border-primary-800 py-8"
         >
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
+            <p className="text-primary-400 text-sm">
               &copy; {currentYear} LUMINA. All rights reserved.
             </p>
 
@@ -293,7 +297,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all ${social.color}`}
+                  className={`p-2 bg-primary-800 rounded-lg hover:bg-primary-700 transition-all ${social.color}`}
                 >
                   <social.icon className="w-4 h-4" />
                 </motion.a>
@@ -301,22 +305,22 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 text-xs mr-2">We accept:</span>
+              <span className="text-primary-400 text-xs mr-2">We accept:</span>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="px-3 py-1 bg-gray-800 rounded-lg text-xs text-gray-400"
+                className="px-3 py-1 bg-primary-800 rounded-lg text-xs text-primary-400"
               >
                 Visa
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="px-3 py-1 bg-gray-800 rounded-lg text-xs text-gray-400"
+                className="px-3 py-1 bg-primary-800 rounded-lg text-xs text-primary-400"
               >
                 MasterCard
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="px-3 py-1 bg-gray-800 rounded-lg text-xs text-gray-400"
+                className="px-3 py-1 bg-primary-800 rounded-lg text-xs text-primary-400"
               >
                 PayPal
               </motion.div>
