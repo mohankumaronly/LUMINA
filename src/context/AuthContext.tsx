@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isLoading, setIsLoading] = useState(false);
 
   // Mock login
-  const login = async (email: string, password: string) => {
+  const login = async (email: string) => {
     setIsLoading(true);
     try {
       // Simulate API call
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   // Mock register
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name: string, email: string) => {
     setIsLoading(true);
     try {
       // Simulate API call

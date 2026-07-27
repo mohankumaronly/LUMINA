@@ -7,12 +7,6 @@ import {
   FaCreditCard, 
   FaCheckCircle,
   FaUser,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaBuilding,
-  FaCity,
-  FaFlag,
   FaLock,
   FaShieldAlt
 } from 'react-icons/fa';
@@ -92,24 +86,7 @@ const CheckoutPage: React.FC = () => {
   const shipping = subtotal > 100 ? 0 : 9.99;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
-
-  // Animation variants - NO transition inside
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1
-    }
-  };
-
-  const itemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1
-    }
-  };
-
-  // Step variants - NO transition inside
+  
   const stepVariants = {
     hidden: { x: 50, opacity: 0 },
     visible: {
