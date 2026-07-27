@@ -2,39 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  ShoppingCart, 
-  Search, 
-  Menu, 
-  X, 
-  User, 
-  LogOut, 
-  Heart,
-  Sun,
-  Moon,
-  Store
-} from 'lucide-react';
-
-// Temporary hooks - we'll create these later
-const useCart = () => {
-  return { cartItems: [] as any[] };
-};
-
-const useAuth = () => {
-  return { user: null, logout: () => {} };
-};
+  FaShoppingCart, 
+  FaSearch, 
+  FaBars, 
+  FaTimes, 
+  FaUser, 
+  FaSignOutAlt,
+  FaHeart,
+  FaSun,
+  FaMoon,
+  FaStore
+} from 'react-icons/fa';
+import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import LoginModal from '../auth/LoginModal';
+import RegisterModal from '../auth/RegisterModal';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const location = useLocation();
-  const { cartItems } = useCart();
+  const { getTotalItems } = useCart();
   const { user, logout } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
 
-  // Calculate total items in cart
-  const totalItems = cartItems.reduce((acc: number, item: any) => acc + item.quantity, 0);
+  const totalItems = getTotalItems();
 
   // Handle scroll effect
   useEffect(() => {
@@ -45,15 +42,6 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle dark mode toggle
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
-
   // Navigation items
   const navItems = [
     { name: 'Home', path: '/' },
@@ -62,7 +50,7 @@ const Header: React.FC = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
-  // Header variants - simplified without transition in variants
+  // Header variants
   const headerVariants = {
     hidden: { 
       y: -100, 
@@ -74,7 +62,6 @@ const Header: React.FC = () => {
     }
   };
 
-  // Mobile menu variants
   const mobileMenuVariants = {
     hidden: { 
       x: '100%',
@@ -86,7 +73,6 @@ const Header: React.FC = () => {
     }
   };
 
-  // Search bar variants
   const searchVariants = {
     hidden: { 
       scaleX: 0,
@@ -101,6 +87,7 @@ const Header: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      // Navigate to search results - you can implement this later
       console.log('Searching for:', searchQuery);
       setSearchQuery('');
       setIsSearchOpen(false);
@@ -116,8 +103,8 @@ const Header: React.FC = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/95 dark:bg-secondary-900/95 backdrop-blur-lg shadow-xl' 
-            : 'bg-white dark:bg-secondary-900'
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-xl' 
+            : 'bg-white dark:bg-gray-900'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,10 +116,10 @@ const Header: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg"
               >
-                <Store className="w-6 h-6 text-white" />
+                <FaStore className="w-6 h-6 text-white" />
               </motion.div>
               <motion.span 
-                className="text-2xl font-bold text-secondary-900 dark:text-secondary-100"
+                className="text-2xl font-bold text-gray-900 dark:text-gray-100"
                 whileHover={{ scale: 1.05 }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-600">LUMINA</span>
@@ -148,7 +135,7 @@ const Header: React.FC = () => {
                   className={`relative text-sm font-medium transition-colors duration-300 ${
                     location.pathname === item.path
                       ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-secondary-600 dark:text-secondary-400 hover:text-blue-600 dark:hover:text-blue-400'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400'
                   }`}
                 >
                   {item.name}
@@ -170,51 +157,49 @@ const Header: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-xl text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <Search className="w-5 h-5" />
+                <FaSearch className="w-5 h-5" />
               </motion.button>
 
               {/* Dark Mode Toggle */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2 rounded-xl text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+                onClick={toggleTheme}
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {isDarkMode ? (
-                  <Sun className="w-5 h-5" />
+                  <FaSun className="w-5 h-5" />
                 ) : (
-                  <Moon className="w-5 h-5" />
+                  <FaMoon className="w-5 h-5" />
                 )}
               </motion.button>
 
               {/* User Account */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="relative"
-              >
+              <motion.div whileHover={{ scale: 1.05 }} className="relative">
                 {user ? (
-                  <div className="flex items-center gap-2">
-                    <Link to="/profile">
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center cursor-pointer shadow-lg"
-                      >
-                        <User className="w-5 h-5 text-white" />
-                      </motion.div>
-                    </Link>
-                  </div>
-                ) : (
-                  <Link to="/login">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
+                  <Link to="/profile">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center cursor-pointer shadow-lg"
                     >
-                      Sign In
-                    </motion.button>
+                      {user.avatar ? (
+                        <img src={user.avatar} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                      ) : (
+                        <FaUser className="w-5 h-5 text-white" />
+                      )}
+                    </motion.div>
                   </Link>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowLoginModal(true)}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
+                  >
+                    Sign In
+                  </motion.button>
                 )}
               </motion.div>
 
@@ -223,9 +208,9 @@ const Header: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-xl text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors relative"
+                  className="p-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
                 >
-                  <Heart className="w-5 h-5" />
+                  <FaHeart className="w-5 h-5" />
                 </motion.button>
               </Link>
 
@@ -236,7 +221,7 @@ const Header: React.FC = () => {
                   whileTap={{ scale: 0.9 }}
                   className="p-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-colors relative shadow-lg"
                 >
-                  <ShoppingCart className="w-5 h-5" />
+                  <FaShoppingCart className="w-5 h-5" />
                   <AnimatePresence>
                     {totalItems > 0 && (
                       <motion.span
@@ -257,12 +242,12 @@ const Header: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+                className="lg:hidden p-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                  <FaTimes className="w-6 h-6" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <FaBars className="w-6 h-6" />
                 )}
               </motion.button>
             </div>
@@ -285,14 +270,14 @@ const Header: React.FC = () => {
                     placeholder="Search for products..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-4 py-3 pr-12 rounded-xl border-2 border-secondary-200 dark:border-secondary-700 bg-white dark:bg-secondary-800 text-secondary-800 dark:text-secondary-200 focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
                     autoFocus
                   />
                   <button
                     type="submit"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-secondary-400 hover:text-blue-600 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-blue-600 transition-colors"
                   >
-                    <Search className="w-5 h-5" />
+                    <FaSearch className="w-5 h-5" />
                   </button>
                 </form>
               </motion.div>
@@ -305,32 +290,31 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={() => setIsMobileMenuOpen(false)}
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
             />
             
-            {/* Menu Panel */}
             <motion.div
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
               exit="hidden"
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 right-0 h-full w-80 bg-white dark:bg-secondary-900 shadow-2xl z-50 lg:hidden"
+              className="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 lg:hidden"
             >
               <div className="p-6">
                 <div className="flex justify-between items-center mb-8">
                   <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-600">LUMINA</span>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-xl hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+                    className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <X className="w-6 h-6" />
+                    <FaTimes className="w-6 h-6" />
                   </button>
                 </div>
 
@@ -343,23 +327,23 @@ const Header: React.FC = () => {
                       className={`text-lg font-medium px-4 py-3 rounded-xl transition-colors ${
                         location.pathname === item.path
                           ? 'bg-blue-600 text-white'
-                          : 'text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800'
+                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                       }`}
                     >
                       {item.name}
                     </Link>
                   ))}
 
-                  <hr className="border-secondary-200 dark:border-secondary-800 my-4" />
+                  <hr className="border-gray-200 dark:border-gray-800 my-4" />
 
                   {user ? (
                     <>
                       <Link
                         to="/profile"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-secondary-600 dark:text-secondary-400 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                       >
-                        <User className="w-5 h-5" />
+                        <FaUser className="w-5 h-5" />
                         Profile
                       </Link>
                       <button
@@ -369,18 +353,20 @@ const Header: React.FC = () => {
                         }}
                         className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                       >
-                        <LogOut className="w-5 h-5" />
+                        <FaSignOutAlt className="w-5 h-5" />
                         Sign Out
                       </button>
                     </>
                   ) : (
-                    <Link
-                      to="/login"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setShowLoginModal(true);
+                      }}
                       className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-center transition-colors"
                     >
                       Sign In
-                    </Link>
+                    </button>
                   )}
                 </nav>
               </div>
@@ -388,6 +374,26 @@ const Header: React.FC = () => {
           </>
         )}
       </AnimatePresence>
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToRegister={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+        }}
+      />
+
+      {/* Register Modal */}
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSwitchToLogin={() => {
+          setShowRegisterModal(false);
+          setShowLoginModal(true);
+        }}
+      />
     </>
   );
 };
